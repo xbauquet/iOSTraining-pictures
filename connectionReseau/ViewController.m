@@ -112,6 +112,8 @@ NSMutableDictionary * smallPhotosData;
             [largePhotosURL addObject:photoURLString];
         }
     
+    self.navigationItem.title = [NSString stringWithFormat:@"%li photos", (long)[photoTitles count] ];
+    
     [self.tableView reloadData];
     
 }
