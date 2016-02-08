@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController <NSURLConnectionDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *popUpImage;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)tapGesture:(id)sender;
 
 @end
 

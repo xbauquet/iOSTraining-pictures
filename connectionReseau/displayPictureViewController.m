@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.image.image = self.largeImage;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +34,5 @@
 }
 */
 
-- (IBAction)back:(id)sender {
-}
+
 @end

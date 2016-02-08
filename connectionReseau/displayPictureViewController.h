@@ -10,7 +10,6 @@
 
 @interface displayPictureViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *image;
-
-- (IBAction)back:(id)sender;
+@property UIImage * largeImage;
 
 @end
