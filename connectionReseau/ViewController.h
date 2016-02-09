@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <NSURLConnectionDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController <NSURLConnectionDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *popUpImage;
-
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-- (IBAction)tapGesture:(id)sender;
+
+
+- (IBAction)tapGesture:(UITapGestureRecognizer *)sender;
+- (IBAction)pinchGesture:(UIPinchGestureRecognizer *)sender;
+- (IBAction)rotationGesture:(UIRotationGestureRecognizer *)sender;
+- (IBAction)panGesture:(UIPanGestureRecognizer *)sender;
+- (IBAction)longPressGesture:(UILongPressGestureRecognizer *)sender;
 
 @end
 

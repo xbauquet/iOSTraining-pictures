@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "displayPictureViewController.h"
 
 @interface ViewController (){
     NSMutableData * _receivedData;
@@ -27,6 +26,11 @@ NSMutableArray * largePhotosURL;
 NSMutableDictionary * smallPhotosData;
 
 
+CGFloat firstX;
+CGFloat firstY;
+CGFloat lastRotation;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -43,7 +47,7 @@ NSMutableDictionary * smallPhotosData;
     activityView.center =self.view.center;
     
     
-    self.popUpImage.hidden = YES;
+    self.blurView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -179,9 +183,13 @@ NSMutableDictionary * smallPhotosData;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.popUpImage.hidden = NO;
+    self.blurView.hidden = NO;
     self.popUpImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[largePhotosURL objectAtIndex:indexPath.row]]]];
    
+    // Save the initial position of the popUpImage 
+    firstX = [self.popUpImage center].x;
+    firstY = [self.popUpImage center].y;
+    
     
    /* self.popUpImage.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
@@ -189,12 +197,83 @@ NSMutableDictionary * smallPhotosData;
     
 }
 
-- (IBAction)tapGesture:(id)sender{
-    self.popUpImage.hidden = YES;
+/*
+ * Gestures
+ */
+
+// TAP - CLOSE BLUR VIEW
+- (IBAction)tapGesture:(UITapGestureRecognizer *)sender{
+    self.blurView.hidden = YES;
+    [self resetPositionAndSizeImage];
 }
 
+// ZOOM +/-
+- (IBAction)pinchGesture:(UIPinchGestureRecognizer *)sender {
+    if (sender.scale >0.5f && sender.scale < 2.5f) {
+        // multiply x and y 
+        CGAffineTransform transform = CGAffineTransformMakeScale(sender.scale, sender.scale);
+        self.popUpImage.transform = transform;
+    }
+}
 
+// ROTATION
+- (IBAction)rotationGesture:(UIRotationGestureRecognizer *)sender {
+    if([(UIRotationGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
+        lastRotation = 0.0;
+        return;
+    }
+    
+    CGFloat rotation = 0.0 - (lastRotation - [(UIRotationGestureRecognizer*)sender rotation]);
+    
+    CGAffineTransform currentTransform = self.popUpImage.transform;
+    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,rotation);
+    
+    [self.popUpImage setTransform:newTransform];
+    lastRotation = [(UIRotationGestureRecognizer*)sender rotation];
+}
 
+// MOVE IMAGE
+- (IBAction)panGesture:(UIPanGestureRecognizer *)sender {
+    [self.view bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
+    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:self.view];
+    
+    translatedPoint = CGPointMake(firstX+translatedPoint.x, firstY+translatedPoint.y);
+    
+    [self.popUpImage setCenter:translatedPoint];
+    
+    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
+        
+        CGFloat finalX = translatedPoint.x + (0*[(UIPanGestureRecognizer*)sender velocityInView:self.popUpImage].x);
+        CGFloat finalY = translatedPoint.y + (0*[(UIPanGestureRecognizer*)sender velocityInView:self.popUpImage].y);
+        
+        [self.popUpImage setCenter:CGPointMake(finalX, finalY)];
+    }
+}
+
+// RESET POSITION AND SIZE
+- (IBAction)longPressGesture:(UILongPressGestureRecognizer *)sender {
+    [self resetPositionAndSizeImage];
+}
+
+// reset position and size method
+- (void)resetPositionAndSizeImage{
+    // annule zoom
+    CGAffineTransform transform = CGAffineTransformMakeScale(1.0, 1.0);
+    self.popUpImage.transform = transform;
+    
+    // annule rotations
+    CGAffineTransform currentTransform = self.popUpImage.transform;
+    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,0.0);
+    [self.popUpImage setTransform:newTransform];
+    
+    // annule déplacement
+    [self.popUpImage setCenter:CGPointMake(firstX, firstY)];
+}
+
+// ALLOW MULTI SIMULTANEOUS GESTURES
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
 
 /*
  * Bar de recherche
