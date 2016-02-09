@@ -24,15 +24,17 @@ UIActivityIndicatorView *activityViewTableCell;
 NSMutableArray * smallPhotosURL;
 NSMutableArray * largePhotosURL;
 NSMutableDictionary * smallPhotosData;
-
+NSUInteger currentLargeImageIndex;
 
 CGFloat firstX;
 CGFloat firstY;
 CGFloat lastRotation;
-
+CGContextRef * myContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.tap requireGestureRecognizerToFail:self.longPress];
     
     photoTitles = [NSMutableArray new];
     photoSmallImageData = [NSMutableArray new];
@@ -83,7 +85,7 @@ CGFloat lastRotation;
     
    /* dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{*/
         
-        NSLog(@"Succeeded! Receives %d bytes of data", [_receivedData length]);
+        NSLog(@"Succeeded! Receives %lu bytes of data", (unsigned long)[_receivedData length]);
         NSString *stringData = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
         NSLog(@"Reponse data being called: %@", stringData);
         NSError *error;
@@ -185,21 +187,18 @@ CGFloat lastRotation;
 {
     self.blurView.hidden = NO;
     self.popUpImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[largePhotosURL objectAtIndex:indexPath.row]]]];
-   
+    currentLargeImageIndex = indexPath.row;
     // Save the initial position of the popUpImage 
     firstX = [self.popUpImage center].x;
     firstY = [self.popUpImage center].y;
-    
-    
-   /* self.popUpImage.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
-    [self.popUpImage addGestureRecognizer:tap];*/
-    
 }
 
+
+#pragma Gestures
 /*
  * Gestures
  */
+
 
 // TAP - CLOSE BLUR VIEW
 - (IBAction)tapGesture:(UITapGestureRecognizer *)sender{
@@ -207,34 +206,22 @@ CGFloat lastRotation;
     [self resetPositionAndSizeImage];
 }
 
-// ZOOM +/-
-- (IBAction)pinchGesture:(UIPinchGestureRecognizer *)sender {
-    if (sender.scale >0.5f && sender.scale < 2.5f) {
-        // multiply x and y 
-        CGAffineTransform transform = CGAffineTransformMakeScale(sender.scale, sender.scale);
-        self.popUpImage.transform = transform;
-    }
-}
 
-// ROTATION
-- (IBAction)rotationGesture:(UIRotationGestureRecognizer *)sender {
-    if([(UIRotationGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
-        lastRotation = 0.0;
-        return;
-    }
+- (IBAction)pinchAndRotationGesture:(UIGestureRecognizer *)sender {
+
+    CGAffineTransform transform;
     
-    CGFloat rotation = 0.0 - (lastRotation - [(UIRotationGestureRecognizer*)sender rotation]);
+    // Rotation
+    transform = CGAffineTransformMakeRotation(self.rotation.rotation);
     
-    CGAffineTransform currentTransform = self.popUpImage.transform;
-    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,rotation);
-    
-    [self.popUpImage setTransform:newTransform];
-    lastRotation = [(UIRotationGestureRecognizer*)sender rotation];
+    // Zoom +/-
+    transform = CGAffineTransformScale(transform,self.pinch.scale, self.pinch.scale);
+    self.popUpImage.transform = transform;
 }
 
 // MOVE IMAGE
-- (IBAction)panGesture:(UIPanGestureRecognizer *)sender {
-    [self.view bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
+/*- (IBAction)panGesture:(UIPanGestureRecognizer *)sender {
+
     CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:self.view];
     
     translatedPoint = CGPointMake(firstX+translatedPoint.x, firstY+translatedPoint.y);
@@ -248,26 +235,39 @@ CGFloat lastRotation;
         
         [self.popUpImage setCenter:CGPointMake(finalX, finalY)];
     }
-}
+}*/
+
 
 // RESET POSITION AND SIZE
 - (IBAction)longPressGesture:(UILongPressGestureRecognizer *)sender {
     [self resetPositionAndSizeImage];
 }
 
+// SWIPE - CHANGE IMAGE
+- (IBAction)swipeGestureRight:(UISwipeGestureRecognizer *)sender {
+    if (currentLargeImageIndex != 0){
+        self.popUpImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[largePhotosURL objectAtIndex:--currentLargeImageIndex]]]];
+        [self resetPositionAndSizeImage];
+    }
+}
+
+// SWIPE - CHANGE IMAGE
+- (IBAction)swipeGestureLeft:(UISwipeGestureRecognizer *)sender {
+    NSUInteger index = ++currentLargeImageIndex;
+    if (index < [photoTitles count]){
+        self.popUpImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[largePhotosURL objectAtIndex:index]]]];
+        [self resetPositionAndSizeImage];
+    }
+}
+
 // reset position and size method
 - (void)resetPositionAndSizeImage{
-    // annule zoom
-    CGAffineTransform transform = CGAffineTransformMakeScale(1.0, 1.0);
-    self.popUpImage.transform = transform;
-    
-    // annule rotations
-    CGAffineTransform currentTransform = self.popUpImage.transform;
-    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,0.0);
-    [self.popUpImage setTransform:newTransform];
-    
     // annule déplacement
     [self.popUpImage setCenter:CGPointMake(firstX, firstY)];
+    
+    // annule rotations et zoom
+    self.popUpImage.transform = CGAffineTransformIdentity;
+    
 }
 
 // ALLOW MULTI SIMULTANEOUS GESTURES
@@ -286,6 +286,7 @@ CGFloat lastRotation;
 - (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar{
     NSLog(@"Go");
     [self getPhotos:searchBar.text];
+    [searchBar resignFirstResponder];
 }
 
 - (void)getPhotos:(NSString *) query{
@@ -306,16 +307,5 @@ CGFloat lastRotation;
     NSURLRequest *theRequest = [NSURLRequest requestWithURL:flickrGetURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
     NSURLConnection *con = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
 }
-
-/*
- * Prepare for segue
- */
-/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    }
-}*/
-
-
-
-
 
 @end
