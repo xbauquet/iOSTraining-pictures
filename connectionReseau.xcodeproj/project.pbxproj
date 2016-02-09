@@ -13,8 +13,6 @@
 		2548E3891C64DC0200D1BFB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2548E3871C64DC0200D1BFB9 /* Main.storyboard */; };
 		2548E38B1C64DC0200D1BFB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2548E38A1C64DC0200D1BFB9 /* Assets.xcassets */; };
 		2548E38E1C64DC0200D1BFB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2548E38C1C64DC0200D1BFB9 /* LaunchScreen.storyboard */; };
-		2548E3971C64F31900D1BFB9 /* displayPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2548E3961C64F31900D1BFB9 /* displayPictureViewController.m */; };
-		255A094A1C689476008192E9 /* PopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 255A09491C689476008192E9 /* PopUpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +26,6 @@
 		2548E38A1C64DC0200D1BFB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2548E38D1C64DC0200D1BFB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2548E38F1C64DC0200D1BFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2548E3951C64F31900D1BFB9 /* displayPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = displayPictureViewController.h; sourceTree = "<group>"; };
-		2548E3961C64F31900D1BFB9 /* displayPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = displayPictureViewController.m; sourceTree = "<group>"; };
-		255A09481C689476008192E9 /* PopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopUpViewController.h; sourceTree = "<group>"; };
-		255A09491C689476008192E9 /* PopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,11 +62,7 @@
 				2548E3821C64DC0200D1BFB9 /* AppDelegate.m */,
 				2548E3841C64DC0200D1BFB9 /* ViewController.h */,
 				2548E3851C64DC0200D1BFB9 /* ViewController.m */,
-				255A09481C689476008192E9 /* PopUpViewController.h */,
-				255A09491C689476008192E9 /* PopUpViewController.m */,
 				2548E3871C64DC0200D1BFB9 /* Main.storyboard */,
-				2548E3951C64F31900D1BFB9 /* displayPictureViewController.h */,
-				2548E3961C64F31900D1BFB9 /* displayPictureViewController.m */,
 				2548E38A1C64DC0200D1BFB9 /* Assets.xcassets */,
 				2548E38C1C64DC0200D1BFB9 /* LaunchScreen.storyboard */,
 				2548E38F1C64DC0200D1BFB9 /* Info.plist */,
@@ -162,8 +152,6 @@
 			files = (
 				2548E3861C64DC0200D1BFB9 /* ViewController.m in Sources */,
 				2548E3831C64DC0200D1BFB9 /* AppDelegate.m in Sources */,
-				2548E3971C64F31900D1BFB9 /* displayPictureViewController.m in Sources */,
-				255A094A1C689476008192E9 /* PopUpViewController.m in Sources */,
 				2548E3801C64DC0200D1BFB9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

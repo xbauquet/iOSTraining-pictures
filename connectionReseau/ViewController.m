@@ -232,27 +232,11 @@ NSMutableDictionary * smallPhotosData;
  * Prepare for segue
  */
 /*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"monSegue"]){
-        
-        displayPictureViewController * displayVC = segue.destinationViewController;
-        NSIndexPath *ip = [self.tableView indexPathForSelectedRow];
-
-        displayVC.largeImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[largePhotosURL objectAtIndex:ip.row]]]];
-        
     }
 }*/
 
 
 
-/*- (void)toto{
-    [UIView animateWithDuration:1.5
-                          delay:0
-                        options:UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-                         [myLabel setAlpha:0.0];
-                     }
-                     completion:nil];
-}*/
 
 
 @end
