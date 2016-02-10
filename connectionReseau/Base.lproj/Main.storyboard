@@ -3,50 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Pop Up View Controller-->
-        <scene sceneID="fHC-x4-vXP">
-            <objects>
-                <viewController id="MEJ-pR-cMw" customClass="PopUpViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VjL-1B-Tvn"/>
-                        <viewControllerLayoutGuide type="bottom" id="3u7-Gy-lyu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="j43-BW-v66">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fwh-GT-v00">
-                                <rect key="frame" x="20" y="20" width="560" height="530"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3X-cc-clJ">
-                                <rect key="frame" x="283" y="560" width="34" height="30"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="back:" destination="MEJ-pR-cMw" eventType="touchUpInside" id="ad8-kX-ByT"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Fwh-GT-v00" secondAttribute="trailing" id="AFf-gS-MK5"/>
-                            <constraint firstItem="Z3X-cc-clJ" firstAttribute="top" secondItem="Fwh-GT-v00" secondAttribute="bottom" constant="10" id="Om1-HY-PxS"/>
-                            <constraint firstItem="Fwh-GT-v00" firstAttribute="leading" secondItem="j43-BW-v66" secondAttribute="leadingMargin" id="Q3g-yf-XYg"/>
-                            <constraint firstItem="Fwh-GT-v00" firstAttribute="top" secondItem="VjL-1B-Tvn" secondAttribute="bottom" id="dp5-ow-i3c"/>
-                            <constraint firstItem="Z3X-cc-clJ" firstAttribute="centerX" secondItem="j43-BW-v66" secondAttribute="centerX" id="lEp-sB-XPK"/>
-                            <constraint firstItem="3u7-Gy-lyu" firstAttribute="top" secondItem="Z3X-cc-clJ" secondAttribute="bottom" constant="10" id="mXy-Nt-3Rp"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="Fwh-GT-v00" id="bNy-y9-sVu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iEh-y4-0D2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="604" y="-345"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="S9J-B8-ZIO">
             <objects>
@@ -152,7 +110,6 @@
                             <constraint firstItem="Af2-BJ-gm4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bx9-FY-GLA"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Af2-BJ-gm4" secondAttribute="bottom" id="eja-6b-CAc"/>
                             <constraint firstAttribute="trailing" secondItem="v5v-NU-6nk" secondAttribute="trailing" id="gOg-T0-1Ug"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="FND-LZ-wDi" secondAttribute="leading" id="lJb-fU-R0t"/>
                             <constraint firstAttribute="trailing" secondItem="Af2-BJ-gm4" secondAttribute="trailing" id="p8y-eE-kwW"/>
                             <constraint firstItem="v5v-NU-6nk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tlv-1d-p5U"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FND-LZ-wDi" secondAttribute="bottom" id="xvN-Dp-IYz"/>
