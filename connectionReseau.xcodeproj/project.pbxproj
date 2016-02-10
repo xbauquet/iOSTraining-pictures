@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2548E37B1C64DC0200D1BFB9 /* connectionReseau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = connectionReseau.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2548E37B1C64DC0200D1BFB9 /* PictureS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PictureS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2548E37F1C64DC0200D1BFB9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2548E3811C64DC0200D1BFB9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2548E3821C64DC0200D1BFB9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		2548E37C1C64DC0200D1BFB9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2548E37B1C64DC0200D1BFB9 /* connectionReseau.app */,
+				2548E37B1C64DC0200D1BFB9 /* PictureS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,7 +96,7 @@
 			);
 			name = connectionReseau;
 			productName = connectionReseau;
-			productReference = 2548E37B1C64DC0200D1BFB9 /* connectionReseau.app */;
+			productReference = 2548E37B1C64DC0200D1BFB9 /* PictureS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +110,7 @@
 				TargetAttributes = {
 					2548E37A1C64DC0200D1BFB9 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = L2YQQ72UJ6;
+						DevelopmentTeam = ZV33JZS8XK;
 					};
 				};
 			};
@@ -269,8 +269,8 @@
 				INFOPLIST_FILE = connectionReseau/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.humanbooster.monAppliXavier;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b4ab7708-2eb7-4074-be77-a454a821f993";
+				PRODUCT_NAME = PictureS;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -278,14 +278,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = connectionReseau/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.humanbooster.monAppliXavier;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b4ab7708-2eb7-4074-be77-a454a821f993";
-				"PROVISIONING_PROFILE[sdk=*]" = "b4ab7708-2eb7-4074-be77-a454a821f993";
+				PRODUCT_NAME = PictureS;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=*]" = "";
 			};
 			name = Release;
 		};
